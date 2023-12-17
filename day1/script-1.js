@@ -9,15 +9,15 @@ const chunks = data.trim().split(/\r?\n/);
 const numString = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
 const hybridsString = new Map();
 
-  numString.map((substr) => {
-    numString.forEach((el)=> {
-      if (substr[substr.length - 1] === el[0]) {
-        hybridsString.set((substr.slice(0, -1) + el), (substr + el)); // create hybrid string and remove repeated letter between numbers
-      }
-    })
+numString.map((substr) => { // find all pairs of string-numbers with the same letter for a.last and b.first letters
+  numString.forEach((el)=> {
+    if (substr[substr.length - 1] === el[0]) {
+      hybridsString.set((substr.slice(0, -1) + el), (substr + el)); // create hybrid strings and remove repeated letters between string-numbers
+    }
   })
+})
 
-const sum = chunks
+const sum = chunks // find all hybrid string on the chunks and fix substring in them
   .map((el) => {
     hybridsString.forEach((value, key, map) => {
         el = el.replace(key, value);
@@ -30,8 +30,8 @@ const sum = chunks
     })
     return el;
   })
-  .map(el => el.replace(/\D/g,''))
-  .map(el => (+(el.slice(0,1) + +el.slice(-1))))
+  .map(el => el.replace(/\D/g,'')) // remove letters
+  .map(el => (+(el.slice(0,1) + +el.slice(-1)))) // Let's leave only the first and last digits foer
   .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 
 console.log(sum);
