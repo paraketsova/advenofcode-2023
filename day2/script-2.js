@@ -14,6 +14,7 @@ limit.set('blue', 14);
 console.log('limit', limit)
 
 let sumId = 0;
+let sumPower = 0;
 
 const chunksSlice = chunks.map((el) => {
   let index = el.indexOf(': ');
@@ -54,11 +55,6 @@ pairs.map((el) => {
       blue.push(+pair[0]);
     }
   })
-  // console.log ('red: ', red, 'green: ', green, 'blue: ', blue);
-  //
-  // console.log(Math.max.apply(null, red));
-  // console.log(Math.max.apply(null, green));
-  // console.log(Math.max.apply(null, blue));
 
   if ((Math.max.apply(null, red) <= limit.get('red'))
     && (Math.max.apply(null, green) <= limit.get('green'))
@@ -66,6 +62,11 @@ pairs.map((el) => {
       console.log('this game Ok', gameId);
     sumId += gameId;
   }
+
+  let localSumPower = (Math.max.apply(null, red))*(Math.max.apply(null, green))*(Math.max.apply(null, blue));
+  sumPower += localSumPower;
+
 })
 
-console.log(sumId);
+// console.log(sumId);
+console.log(sumPower);
